@@ -1,0 +1,25 @@
+.AppWrapper {
+    width: 100%;
+    height: 100%;
+    background-image: url('https://source.unsplash.com/weekly?weather');
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 25px 0 0 25px;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .calendar h4 {
+      color: honeydew;
+  }
+
+  .calendar h1 {
+    color: honeydew;
+}
+
+.calendar p {
+    color: honeydew;
+}
+
