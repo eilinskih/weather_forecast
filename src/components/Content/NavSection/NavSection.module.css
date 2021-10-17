@@ -18,7 +18,7 @@
     color: honeydew;
     font-size: 38px;
 }
-
+ 
 .icon {
     display: flex;
     flex-direction: column;
@@ -29,7 +29,7 @@
 }
 
 .foreCast {
-    font-size: 24px;
+    font-size: 18px;
     margin-top: 20px;
     display: flex;
     justify-content: space-around;
