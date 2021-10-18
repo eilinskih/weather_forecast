@@ -1,13 +1,15 @@
-import {call, put, takeEvery} from 'redux-saga/effects';
+import { IWeatherCurrentData } from './../interfaces';
+import { call, put, takeEvery} from 'redux-saga/effects';
+
 import { GET_CURRENT, setCurrentWeather } from './appReducer';
 import {getWeatherData} from './../api/api';
 
 
 export function* appSagaWatcher() {
-    yield takeEvery<any>(GET_CURRENT, appSagaWorker)
+    yield takeEvery(GET_CURRENT, appSagaWorker)
 };
 
-function* appSagaWorker(...args: any): any {
-    const curentWeather = yield call(getWeatherData, args[0].city)
+function* appSagaWorker(args: {type: typeof GET_CURRENT, city: string}) {
+    const curentWeather: IWeatherCurrentData = yield call(getWeatherData, args.city)
     yield put(setCurrentWeather(curentWeather))
 };

@@ -41,7 +41,7 @@ export interface IAppState {
     clouds: null | number
     inputValue: string
     coords: CoordType
-    daily: {date: number, icon: string}[]
+    daily: { date: number, icon: string }[]
 }
 
 export const appReducer = (state = initialState, action: ActyonsType) => {
@@ -49,7 +49,7 @@ export const appReducer = (state = initialState, action: ActyonsType) => {
         case SET_CURRENT:
             return {
                 ...state,
-                coords:  action.weather.coord
+                coords: action.weather.coord
             };
         case SET_FORECAST:
             return {
@@ -63,8 +63,8 @@ export const appReducer = (state = initialState, action: ActyonsType) => {
                 windSpeed: action.forecastData.current.wind_speed,
                 clouds: action.forecastData.current.clouds,
                 daily: action.forecastData.daily.map((item) => {
-                    return {date: item.dt, icon: item.weather[0].icon}
-                    }
+                    return { date: item.dt, icon: item.weather[0].icon }
+                }
                 )
             };
         case SET_COORDS:
@@ -78,15 +78,16 @@ export const appReducer = (state = initialState, action: ActyonsType) => {
                 inputValue: action.value
             };
         case AUTH:
-            if ((action.payload.login === "test" && action.payload.password === "test123") || 
-            (action.payload.login === "test1" && action.payload.password === "test1234")) {
-            return {
-                ...state,
-                isAuthorized: true
-            }} else {
+            if ((action.payload.login === "test" && action.payload.password === "test123") ||
+                (action.payload.login === "test1" && action.payload.password === "test1234")) {
+                return {
+                    ...state,
+                    isAuthorized: true
+                }
+            } else {
                 alert("wrong password or username")
-               return state; 
-            } 
+                return state;
+            }
         default: return state;
     }
 }
@@ -98,21 +99,21 @@ export const getForeCast = (coords: CoordType): GetForeCastType => ({ type: GET_
 export const setForeCast = (forecastData: IForeCastData): SetForecastData => ({ type: SET_FORECAST, forecastData });
 export const setCoords = (lat: number, lon: number): SetCoordsType => ({ type: SET_COORDS, payload: { lat, lon } });
 export const setInputValue = (value: string): SetInputValueType => ({ type: SET_INPUT_VALUE, value });
-export const auth = (payload: {login: string, password: string}): AuthType => ({type: AUTH, payload});
+export const auth = (payload: { login: string, password: string }): AuthType => ({ type: AUTH, payload });
 
-type GetCurrentType = { type: typeof GET_CURRENT, city: string }
-type SetCurrentType = { type: typeof SET_CURRENT, weather: IWeatherCurrentData }
+export type GetCurrentType = { type: typeof GET_CURRENT, city: string }
+export type SetCurrentType = { type: typeof SET_CURRENT, weather: IWeatherCurrentData }
 type GetForeCastType = { type: typeof GET_FORECAST, coords: CoordType }
 type SetForecastData = { type: typeof SET_FORECAST, forecastData: IForeCastData }
 type SetCoordsType = { type: typeof SET_COORDS, payload: CoordType }
 type SetInputValueType = { type: typeof SET_INPUT_VALUE, value: string }
-type AuthType = { type: typeof AUTH, payload: {login: string, password: string}}
+type AuthType = { type: typeof AUTH, payload: { login: string, password: string } }
 
-type ActyonsType =
+export type ActyonsType =
     | GetCurrentType
     | SetCurrentType
     | GetForeCastType
     | SetForecastData
     | SetCoordsType
     | SetInputValueType
-    |AuthType
+    | AuthType
