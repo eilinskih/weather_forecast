@@ -1,9 +1,9 @@
 import Input from 'antd/lib/input';
-import React from 'react';
+import React, { SyntheticEvent } from 'react';
 import { useDispatch } from 'react-redux';
+
 import { formatMonth } from '../../../utils';
 import { getCurrentWeather, setInputValue } from '../../Redux/appReducer';
-
 import m from './MainSection.module.css'
 
   type MainPropsType = {
@@ -13,15 +13,15 @@ import m from './MainSection.module.css'
   }
 
 const MainSection: React.FC<MainPropsType> = (props) => {
-  const dispatch = useDispatch()
-  const today = new Date()
-  const submitHandler = (e: any) => {
+  const dispatch = useDispatch();
+  const today = new Date();
+  const submitHandler = (e: SyntheticEvent<HTMLInputElement>) => {
     dispatch(getCurrentWeather(props.inputValue))
     dispatch(setInputValue(""))
-  }
-  const inputChange = (e: any) => {
-    dispatch(setInputValue(e.target.value))
-  }
+  };
+  const inputChange = (e: SyntheticEvent<HTMLInputElement>) => {
+    dispatch(setInputValue((e.target as HTMLInputElement).value))
+  };
 
   return (
 <div className={m.AppWrapper}>
