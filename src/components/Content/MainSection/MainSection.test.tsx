@@ -1,5 +1,5 @@
-import React from 'react';
-import { unmountComponentAtNode, render } from 'react-dom';
+import { unmountComponentAtNode } from 'react-dom';
+import { render, screen } from '@testing-library/react'
 import { act } from 'react-dom/test-utils';
 import * as redux from 'react-redux';
 
@@ -22,23 +22,27 @@ describe('MainSectionFC',() => {
         container = null
     });
 
+    test("component renders", () => {
+        render(<MainSection inputValue="test value" main="test main" description="test description"/>)
+        expect(screen.getByPlaceholderText('enter the city name...')).toBeInTheDocument()
+    })
+
     test('render with props', () => {
         act(() => {
-            render(<MainSection inputValue="test value" main="test main" description="test description"/>, container )
+            render(<MainSection inputValue="test value" main="test main" description="test description"/>)
         });
-        expect((container as Element).getElementsByTagName("h1")[0].textContent).toBe("test main")
-        expect((container as Element).getElementsByTagName("p")[0].textContent).toBe("test description")
-        expect((container as Element).getElementsByTagName("input")[0].value).toBe("test value")
+        expect(screen.getByText("test main")).toBeInTheDocument()
+        expect(screen.getByText("test description")).toBeInTheDocument()
     });
 
     test('onchange input', () => {
         const onChange = jest.fn();
         act(() => {
-            render(<MainSection inputValue="test value" main="test main" description="test description"/>, container)
+            render(<MainSection inputValue="test value" main="test main" description="test description"/>)
         })
-        const input = (container as Element).getElementsByTagName("input")[0]
+        const input = screen.getByPlaceholderText('enter the city name...')
         input.onchange = onChange
-        expect(input.value).toBe("test value")
+        expect((input as HTMLInputElement).value).toBe("test value")
 
         act(() => {
             input.dispatchEvent(new Event("change", {bubbles: true}))

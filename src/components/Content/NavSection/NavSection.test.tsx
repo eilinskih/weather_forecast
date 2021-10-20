@@ -1,11 +1,20 @@
 
-import { render } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import NavSection from './NavSection'
 
 describe("navSection", () => {
-    test("navSection snapshot", () => {
-        const navSection = render(<NavSection weatherData={{main: "test", icon: "test", description: "test", temp: 1, sunrise: 1, sunset: 1, windSpeed: 1, clouds: 1, daily: [{ date: 1, icon: "test"
-            }]}}/>)
-            expect(navSection).toMatchSnapshot();
+    test("navSection renders with props", () => {
+        render(<NavSection weatherData={{ main:"main test",
+            icon:"testicon",
+            description:"testdesc",
+            temp:null,
+            sunrise:123,
+            sunset:123,
+            windSpeed:null,
+            clouds:null,
+            daily:[{ date:123, icon:"testicon" }]
+        }}/>)
+    expect(screen.getByText(/sunrise/i)).toBeInTheDocument()
+    expect(screen.getByText(/testdesc/i)).toBeInTheDocument()
     })
 })
