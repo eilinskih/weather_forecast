@@ -21,8 +21,7 @@ const App: React.FC = () => {
       const { latitude, longitude } = position.coords;
       dispatch(setCoords(latitude, longitude))
     })
-    // eslint-disable-next-line
-  }, [])
+  }, [coords, dispatch])
 
   useEffect(() => {
     dispatch(getForeCast(coords))

@@ -6,7 +6,7 @@ import { formatMonth } from '../../../utils';
 import { getCurrentWeather, setInputValue } from '../../Redux/appReducer';
 import m from './MainSection.module.css'
 
-  type MainPropsType = {
+ export type MainPropsType = {
     inputValue: string
       main: string
       description: string
