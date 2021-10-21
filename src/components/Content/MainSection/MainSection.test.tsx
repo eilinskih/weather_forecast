@@ -10,18 +10,6 @@ describe('MainSectionFC',() => {
             const mockDispatchFn = jest.fn()
             useDispatchSpy.mockReturnValue(mockDispatchFn);
 
-    let container: Element | null;
-    beforeEach(() => {
-        container = document.createElement("div");
-        document.body.appendChild(container);
-    });
-    
-    afterEach(() => {
-        unmountComponentAtNode(container as Element);
-        (container as Element).remove();
-        container = null
-    });
-
     test("component renders", () => {
         render(<MainSection inputValue="test value" main="test main" description="test description"/>)
         expect(screen.getByPlaceholderText('enter the city name...')).toBeInTheDocument()
@@ -33,6 +21,8 @@ describe('MainSectionFC',() => {
         });
         expect(screen.getByText("test main")).toBeInTheDocument()
         expect(screen.getByText("test description")).toBeInTheDocument()
+        expect((screen.getByPlaceholderText('enter the city name...') as HTMLInputElement).value).toBe("test value")
+
     });
 
     test('onchange input', () => {

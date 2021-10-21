@@ -22,11 +22,11 @@ const worker = appSagaWorker({type: GET_CURRENT, city: "test city"})
         expect(worker.next().value.type).toBe("PUT")
     })
 
-    test("worker dispatches data", () => {
+    test("worker done", () => {
         expect(worker.next().done).toBeTruthy()
     })
 
-    test('should call api and dispatch success action', async () => {
+    test('worker dispatches data', async () => {
         const weatherData: any = { weather: 'test response data' };
         const getWeatherDataSpy = jest.spyOn(api, 'getWeatherData')
           .mockImplementation(() => Promise.resolve(weatherData));
@@ -36,9 +36,8 @@ const worker = appSagaWorker({type: GET_CURRENT, city: "test city"})
           //@ts-ignore
         }, appSagaWorker, {type: GET_CURRENT, city: "string"});
     
-        // expect(getWeatherDataSpy).toHaveBeenCalledTimes(1);
+        expect(getWeatherDataSpy).toHaveBeenCalledTimes(1);
         expect(dispatched).toEqual([setCurrentWeather(weatherData)]);
         getWeatherDataSpy.mockClear();
       });
  })
-
