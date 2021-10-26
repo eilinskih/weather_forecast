@@ -8,7 +8,7 @@ export function* appSagaWatcherForecast() {
     yield takeEvery(GET_FORECAST, appSagaWorkerForecast)
 };
 
-function* appSagaWorkerForecast(args: {type: typeof GET_FORECAST, coords: CoordType}) {
+export function* appSagaWorkerForecast(args: {type: typeof GET_FORECAST, coords: CoordType}) {
     const foreCast: IForeCastData = yield call<any>(getWeatherForeCastData, args.coords)
     yield put(setForeCast(foreCast))
 };
